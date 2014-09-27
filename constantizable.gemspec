@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Abhishek Sarkar", "Yuvaraja Balamurugan", "Nithin Krishna"]
   s.email       = ["abhishek@codebrahma.com","yuva@codebrahma.com","nithin@codebrahma.com"]
   s.summary     = %q{An elegant way to query constant tables, and inquire constant table objects.}
+  s.description = %q{An elegant way to query constant tables, and inquire constant table objects.}
   s.homepage    = "http://codebrahma.com/constantizable"
   s.license     = "MIT"
 
