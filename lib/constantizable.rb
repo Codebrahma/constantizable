@@ -3,10 +3,10 @@ module Constantizable
 
   module ClassMethods
     def method_missing(method, *args, &block)
-      column_name = @constantized_column
+      column_name = @constantized_column.to_s
 
       record = ( 
-                 self.find_by("column_name = ? or column_name = ?", method.to_s, method.to_s.titleize)
+                 self.find_by("#{column_name} = ? or #{column_name} = ?", method.to_s, method.to_s.titleize)
                )
 
       if record.present?
@@ -15,7 +15,7 @@ module Constantizable
         super
       end
       
-    rescue Exception => e
+    rescue
       super
     end
 
