@@ -35,3 +35,5 @@ module Constantizable
     end
   end
 end
+
+ActiveRecord::Base.send(:include, Constantizable)
