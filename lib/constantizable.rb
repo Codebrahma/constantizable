@@ -65,8 +65,6 @@ module Constantizable
       super if column_name.nil?
 
       # The value of the constantized column needs to be titleized or underscored.
-      # The value of the constantized column is compared with the titelized version
-      # of the method name after stripping the '?' at the end.
 
       data = self.send(column_name)
       method[0..-2] == data.titleize.tr(' ','').underscore
