@@ -108,6 +108,6 @@ PLATFORMS
 
 DEPENDENCIES
   constantizable!
-  debugger (~> 1.6.8)
+  debugger
   rspec-rails
   sqlite3
