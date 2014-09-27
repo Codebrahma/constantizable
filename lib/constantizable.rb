@@ -58,12 +58,10 @@ module Constantizable
     # Inquiry happens only if method is an inquiry method (i.e) method name ends with a '?'
 
     if method[-1] == '?'
-      column_name = self.class.instance_variable_get(:@constantized_column)
-
       # If Column name isn't present it should fallback to the default `method_missing` 
       # implementation.
 
-      column_name = @constantized_column
+      column_name = self.class.instance_variable_get(:@constantized_column)
       super if column_name.nil?
 
       # The value of the constantized column needs to be titleized or underscored.
