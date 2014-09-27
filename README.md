@@ -1,5 +1,7 @@
 ##Constantizable
 
+[![Gem Version](https://badge.fury.io/rb/constantizable.svg)](http://badge.fury.io/rb/constantizable)
+
 By [CodeBrahma](http://codebrahma.com).
 
 Constantizable is a rails plugin which gives you an elegant way to query constant tables and inquire constant table objects.
