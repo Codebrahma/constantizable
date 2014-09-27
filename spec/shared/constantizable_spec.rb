@@ -16,9 +16,8 @@ shared_examples "constantizable" do
     end
   end
   
-  context "#method_missing" do
-    describe "returns the record with the called :#{constantized_column}" do
-
+  context "querying" do
+    context "when #{described_class.to_s} is queried with :#{constantized_column}" do
       it "when :#{constantized_column} contains single word" do
         record = create_mock_record_with.call("sample")
         described_class.stub(:find_by).and_return(record)
@@ -41,6 +40,34 @@ shared_examples "constantizable" do
         record = create_mock_record_with.call("Sample Name")
         described_class.stub(:find_by).and_return(record)
         expect(described_class.sample_name).to eq record
+      end
+    end
+  end
+
+  context "inquiry" do
+    context "when an instance of #{described_class.to_s} is inquired with :#{constantized_column}?" do
+      it "when :#{constantized_column} contains single word" do
+        record = create_mock_record_with.call("sample")
+        described_class.stub(:find_by).and_return(record)
+        expect(described_class.sample.sample?).to eq true
+      end
+
+      it "when :#{constantized_column} contains more than 1 word without space" do
+        record = create_mock_record_with.call("sample_name")
+        described_class.stub(:find_by).and_return(record)
+        expect(described_class.sample_name.sample_name?).to eq true
+      end
+
+      it "when :#{constantized_column} contains more than 1 word with space" do
+        record = create_mock_record_with.call("sample name")
+        described_class.stub(:find_by).and_return(record)
+        expect(described_class.sample_name.sample_name?).to eq true
+      end
+
+      it "when :#{constantized_column} contains more than 1 word with space and upper case" do
+        record = create_mock_record_with.call("Sample Name")
+        described_class.stub(:find_by).and_return(record)
+        expect(described_class.sample_name.sample_name?).to eq true
       end
     end
   end
