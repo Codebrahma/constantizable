@@ -1,6 +1,9 @@
 ##Constantizable
 
 [![Gem Version](https://badge.fury.io/rb/constantizable.svg)](http://badge.fury.io/rb/constantizable)
+[![Code Climate](https://codeclimate.com/github/Codebrahma/constantizable/badges/gpa.svg)](https://codeclimate.com/github/Codebrahma/constantizable)
+[![Dependency Status](https://gemnasium.com/Codebrahma/constantizable.svg)](https://gemnasium.com/Codebrahma/constantizable)
+[![Build Status](https://travis-ci.org/Codebrahma/constantizable.svg)](https://travis-ci.org/Codebrahma/constantizable)
 
 By [CodeBrahma](http://codebrahma.com).
 
