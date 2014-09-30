@@ -1,0 +1,10 @@
+rvm:
+  - 2.1.0
+  - 2.0.0-p481
+before_install:
+  - gem update --system
+install: "bundle install"
+script: "cd spec/dummy/; bundle exec rake db:create; bundle exec rake db:migrate; bundle exec rspec spec/"
+branches:
+  only:
+    - master
