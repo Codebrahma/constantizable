@@ -40,6 +40,9 @@ In each of your constant table models, specify the attribute that needs to be co
 ``` ruby
 class Country < ActiveRecord::Base
   constantize_column :name
+  # you can also constantize multiple columns as follows
+  # constantize_column :name, :code
+  # preference will be given to the first column
 end
 ```
 
