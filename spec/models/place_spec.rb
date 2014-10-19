@@ -4,7 +4,6 @@ RSpec.describe Place, :type => :model do
   context "querying" do
     it "should fallback to the default method_missing impl" do
       expect{ Place.test_place }.to raise_exception
-      expect(Place.find_by_name("Test place")).to eq(Place.first)
     end
   end
 

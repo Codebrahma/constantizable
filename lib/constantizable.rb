@@ -4,15 +4,15 @@ module Constantizable
   # like, `ClassMethods` and to include it into `ActiveRecord::Base`.
 
   module ClassMethods
-    def constantize_column(column)
+    def constantize_column(*columns)
       # This method is set as a class method as it can directly be invoked from model definitions
       # as follows.
 
       # Class Country < ActiveRecord::Base
-      #   constantize_column :name
+      #   constantize_columns :name, :code
       # end
 
-      @constantized_column = column
+      @constantized_columns = columns
     end
 
   private
@@ -24,8 +24,8 @@ module Constantizable
       # If Column name isn't present it should fallback to the default `method_missing` 
       # implementation.
 
-      column_name = @constantized_column
-      super if column_name.nil?
+      column_names = @constantized_columns
+      super if column_names.blank?
 
       # The value of the constantized column needs to be titleized or underscored, 
       # for the implementation to work.
@@ -36,10 +36,11 @@ module Constantizable
       # Country.india.
       # Country with name "united_kingdom", will correspond to the query,
       # Country.united_kingdom.
-
-      record = ( 
-                 self.find_by("#{column_name} = ? or #{column_name} = ?", method.to_s, method.to_s.titleize)
-               )
+      record = nil
+      column_names.each do | column_name |
+        break if record.present?
+        record = self.find_by("lower(#{column_name}) = ? or lower(#{column_name}) = ?", method.to_s, method.to_s.titleize.downcase)    
+      end
 
       if record.present?
         record
@@ -60,14 +61,22 @@ module Constantizable
     if method[-1] == '?'
       # If Column name isn't present it should fallback to the default `method_missing` 
       # implementation.
-
-      column_name = self.class.instance_variable_get(:@constantized_column)
-      super if column_name.nil?
+      m = method.to_s.gsub("?","")
+      column_names = self.class.instance_variable_get(:@constantized_columns)
+      super if column_names.blank?
 
       # The value of the constantized column needs to be titleized or underscored.
+      record = nil
+      column_names.each do | column_name |
+        break if record.present?
+        record = self.class.find_by("lower(#{column_name}) = ? or lower(#{column_name}) = ?", m.to_s.downcase, m.to_s.titleize.downcase)    
+      end
 
-      data = self.send(column_name)
-      method[0..-2] == data.titleize.tr(' ','').underscore
+      if record.present?
+        self.id == record.id
+      else
+        super
+      end
     else
       super
     end

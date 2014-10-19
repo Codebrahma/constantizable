@@ -26,7 +26,7 @@ RSpec.describe Country, :type => :model do
 
         context "#Country.united_kingdom" do
           it "should return the united_kingdom object" do
-            expect(Country.united_kingdom).to eq(Country.find_by_name("united_kingdom"))
+            expect(Country.united_kingdom).to eq(Country.find_by_name("United Kingdom"))
           end
         end
       end
