@@ -39,7 +39,7 @@ module Constantizable
       record = nil
       column_names.each do | column_name |
         break if record.present?
-        record = self.find_by("lower(#{column_name}) = ? or lower(#{column_name}) = ?", method.to_s, method.to_s.titleize.downcase)    
+        record = self.find_by("lower(#{column_name}) = ? or lower(#{column_name}) = ?", method.to_s.downcase, method.to_s.titleize.downcase)    
       end
 
       if record.present?
