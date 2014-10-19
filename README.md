@@ -49,8 +49,10 @@ end
 That's it.
 
 ``` ruby
-Country.united_states_of_america #<Country id: 3, name: "United States Of America"> 
-Country.india.india? #true
+Country.united_states_of_america # <Country id: 3, name: "United States Of America", code: "USA"> 
+Country.usa # returns same as above
+Country.united_states_of_america.usa? # returns true, [get by name, check using code]
+Country.india.india? # returns true
 ```
 
 ---
