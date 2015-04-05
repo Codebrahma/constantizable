@@ -21,8 +21,8 @@ user.update(:country => Country.find_by_name("India"))
 user.country.name == "India" #Hard code that shit!
 
 # with constantizable
-user.update(:country => Country.india)
-user.country.eql? Country.india
+user.update(:country => Country.india) # Dynammic country name method
+user.country.india? # Dynammic Inquiry
 ```
 
 ---
