@@ -130,7 +130,7 @@ PLATFORMS
 
 DEPENDENCIES
   constantizable!
-  debugger
+  pry
   rspec-rails
   sqlite3
 
