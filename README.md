@@ -10,7 +10,7 @@ By [CodeBrahma](http://codebrahma.com).
 Constantizable is a rails plugin which gives you an elegant way to query constant tables and inquire constant table objects.
 
 ``` ruby
-# Let's say you have a model Country which stores the names of 
+# Let's say you have a model Country which stores the names of
 # all the countries in the world, and a User model which belongs_to
 # a country.
 
@@ -49,7 +49,7 @@ end
 That's it.
 
 ``` ruby
-Country.united_states_of_america # <Country id: 3, name: "United States Of America", code: "USA"> 
+Country.united_states_of_america # <Country id: 3, name: "United States Of America", code: "USA">
 Country.usa # returns same as above
 Country.united_states_of_america.usa? # returns true, [get by name, check using code]
 Country.india.india? # returns true
@@ -57,4 +57,4 @@ Country.india.india? # returns true
 
 ---
 
-Built by [sarka](https://twitter.com/sarka_neo), [yuva](https://twitter.com/Charizard_) and [nithin](https://twitter.com/nithinkrishh)
+Built by [sarka](https://twitter.com/abhisheksarka), [yuva](https://twitter.com/Charizard_) and [nithin](https://twitter.com/nithinkrishh)
