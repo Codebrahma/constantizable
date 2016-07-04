@@ -14,6 +14,17 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'active_record'
+
+ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
+
+load File::expand_path('spec/support/schema.rb')
+require 'constantizable'
+Dir.glob("spec/shared/**/*.rb").each { |f| require  File::expand_path(f)  }
+
+require 'support/models'
+require 'support/seeds'
+
 RSpec.configure do |config|
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
