@@ -11,4 +11,3 @@ script: "bundle exec rspec spec/"
 branches:
   only:
     - master
-    - best_practices
