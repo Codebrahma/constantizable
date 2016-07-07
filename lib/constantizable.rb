@@ -15,19 +15,20 @@ module Constantizable
       @constantized_columns = columns
     end
 
-  private
+    private
+
     def method_missing(method, *args, &block)
       # In the case that an object's constantized column value corresponds to the method name,
-      # the object is returned, else execution is delegated to the default `method_missing` 
+      # the object is returned, else execution is delegated to the default `method_missing`
       # implementation.
 
-      # If Column name isn't present it should fallback to the default `method_missing` 
+      # If Column name isn't present it should fallback to the default `method_missing`
       # implementation.
 
       column_names = @constantized_columns
       super if column_names.blank?
 
-      # The value of the constantized column needs to be titleized or underscored, 
+      # The value of the constantized column needs to be titleized or underscored,
       # for the implementation to work.
       # (eg)
       # Country with name "United States Of America", will correspond to the query,
@@ -37,9 +38,9 @@ module Constantizable
       # Country with name "united_kingdom", will correspond to the query,
       # Country.united_kingdom.
       record = nil
-      column_names.each do | column_name |
+      column_names.each do |column_name|
         break if record.present?
-        record = self.find_by("lower(#{column_name}) = ? or lower(#{column_name}) = ?", method.to_s.downcase, method.to_s.titleize.downcase)    
+        record = find_by("lower(#{column_name}) = ? or lower(#{column_name}) = ?", method.to_s.downcase, method.to_s.titleize.downcase)
       end
 
       if record.present?
@@ -47,33 +48,32 @@ module Constantizable
       else
         super
       end
-      
+
     rescue
       super
     end
   end
-
 
   def method_missing(method, *args, &block)
     # Refer https://github.com/rails/rails/blob/master/activesupport/lib/active_support/string_inquirer.rb
     # Inquiry happens only if method is an inquiry method (i.e) method name ends with a '?'
 
     if method[-1] == '?'
-      # If Column name isn't present it should fallback to the default `method_missing` 
+      # If Column name isn't present it should fallback to the default `method_missing`
       # implementation.
-      m = method.to_s.gsub("?","")
+      m = method.to_s.delete('?')
       column_names = self.class.instance_variable_get(:@constantized_columns)
       super if column_names.blank?
 
       # The value of the constantized column needs to be titleized or underscored.
       record = nil
-      column_names.each do | column_name |
+      column_names.each do |column_name|
         break if record.present?
-        record = self.class.find_by("lower(#{column_name}) = ? or lower(#{column_name}) = ?", m.to_s.downcase, m.to_s.titleize.downcase)    
+        record = self.class.find_by("lower(#{column_name}) = ? or lower(#{column_name}) = ?", m.to_s.downcase, m.to_s.titleize.downcase)
       end
 
       if record.present?
-        self.id == record.id
+        id == record.id
       else
         super
       end
